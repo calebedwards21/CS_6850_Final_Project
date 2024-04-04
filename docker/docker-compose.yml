@@ -7,6 +7,7 @@ version: "3.8"
 services:
   mysql:
     image: mysql:latest
+    container_name: mysql
     # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
     # (this is just an example, not intended to be a production configuration)
     restart: always
@@ -19,10 +20,11 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    restart: unless-stopped
+    restart: always
     environment:
-      - GF_SECURITY_ADMIN_USER=myusername=admin
-      - GF_SECURITY_ADMIN_PASSWORD=mypassword=password
+      - GF_DISABLE_LOGIN_FORM=true
+      # - GF_SECURITY_ADMIN_USER=myusername=admin
+      # - GF_SECURITY_ADMIN_PASSWORD=mypassword=password
     #  - GF_SERVER_ROOT_URL=http://my.grafana.server/
     #  - GF_INSTALL_PLUGINS=grafana-clock-panel
     ports:
@@ -32,5 +34,3 @@ services:
      - ./grafana/:/etc/grafana/provisioning
 volumes:
   grafana_storage: {}
-
-  # Create mysql datasource
