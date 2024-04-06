@@ -6,6 +6,6 @@ datasources:
     access: proxy
     url: mysql:3306
     database: tuition
-    user: admin
+    user: root
     password: password
     readOnly: false
