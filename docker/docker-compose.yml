@@ -38,9 +38,9 @@ services:
     image: postgres:15
     restart: always
     environment:
-      POSTGRES_DB: my_data
-      POSTGRES_USER: my_user
-      POSTGRES_PASSWORD: my_pwd
+      POSTGRES_DB: tuition
+      POSTGRES_USER: grafana
+      POSTGRES_PASSWORD: grafana
     ports:
       - "5488:5432"
     networks:
