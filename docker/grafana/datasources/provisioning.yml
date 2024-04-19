@@ -4,11 +4,11 @@ datasources:
   - name: Postgres
     type: postgres
     url: postgres:5432
-    user: my_user
+    user: postgres
     secureJsonData:
       password: 'password'
     jsonData:
-      database: tuition
+      database: project
       sslmode: 'disable' # disable/require/verify-ca/verify-full
       maxOpenConns: 100 # Grafana v5.4+
       maxIdleConns: 100 # Grafana v5.4+

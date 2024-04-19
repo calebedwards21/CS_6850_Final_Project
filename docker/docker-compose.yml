@@ -21,8 +21,8 @@ services:
     image: postgres:16
     restart: always
     environment:
-      POSTGRES_DB: tuition
-      POSTGRES_USER: my_user
+      POSTGRES_DB: project
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
