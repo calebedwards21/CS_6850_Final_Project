@@ -3,7 +3,6 @@
 
 # https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/
 
-version: "3.9"
 services:
   grafana:
     image: grafana/grafana
@@ -16,22 +15,6 @@ services:
      - ./grafana/:/etc/grafana/provisioning
     networks:
       - my_network
-  
-  mysql:
-    image: mysql
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: tuition      
-      MYSQL_USER: grafana
-      MYSQL_PASSWORD: grafana
-    ports:
-      - '3306:3306'
-    networks:
-      - my_network
-    # volumes:
-    #   - mysql_storage
 
   postgres:
     container_name: postgres
@@ -48,7 +31,6 @@ services:
       
 # volumes:
 #   grafana_storage:
-    # mysql_storage: 
 
 networks:
   my_network:
