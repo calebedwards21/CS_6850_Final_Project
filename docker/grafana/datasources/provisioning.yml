@@ -16,11 +16,3 @@ datasources:
       connMaxLifetime: 14400 # Grafana v5.4+
       postgresVersion: 906 # 903=9.3, 904=9.4, 905=9.5, 906=9.6, 1000=10
       timescaledb: false
-  - name: MySQL
-    type: mysql
-    access: proxy
-    url: mysql:3306
-    database: tuition
-    user: root
-    password: password
-    readOnly: false
