@@ -9,10 +9,11 @@ services:
     container_name: grafana
     restart: always
     ports:
-     - '3000:3000'
+      - '3000:3000'
+    # environment:
+    #   GF_AUTH_ANONYMOUS_ENABLED: true # Need to authorize anonymous users access to dashboards
     volumes:
-    #  - 'grafana_storage:/var/lib/grafana'
-     - ./grafana/:/etc/grafana/provisioning
+      - ./grafana/:/etc/grafana/provisioning
     networks:
       - my_network
 
@@ -28,9 +29,6 @@ services:
       - "5432:5432"
     networks:
       - my_network
-      
-# volumes:
-#   grafana_storage:
 
 networks:
   my_network:
