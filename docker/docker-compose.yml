@@ -9,10 +9,12 @@ services:
     container_name: grafana
     restart: always
     ports:
-     - '3000:3000'
+      - '3000:3000'
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: true
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Editor
     volumes:
-    #  - 'grafana_storage:/var/lib/grafana'
-     - ./grafana/:/etc/grafana/provisioning
+      - ./grafana/:/etc/grafana/provisioning
     networks:
       - my_network
 
@@ -21,16 +23,13 @@ services:
     image: postgres:16
     restart: always
     environment:
-      POSTGRES_DB: tuition
-      POSTGRES_USER: my_user
+      POSTGRES_DB: project
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     networks:
       - my_network
-      
-# volumes:
-#   grafana_storage:
 
 networks:
   my_network:
