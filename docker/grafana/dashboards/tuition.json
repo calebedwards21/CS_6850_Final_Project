@@ -30,6 +30,111 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 22,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.1",
+      "repeat": "year",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "P44368ADAD746BC27"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT AVG(\"Cost\") FROM tuition  WHERE Year = $year;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "AVG",
+                "parameters": [
+                  {
+                    "name": "\"Cost\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"Year\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "\"Year\"",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": null,
+            "orderBy": {
+              "property": {
+                "type": "string"
+              },
+              "type": "property"
+            }
+          },
+          "table": "tuition"
+        }
+      ],
+      "title": "Panel Title",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P44368ADAD746BC27"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "custom": {
             "align": "auto",
             "cellOptions": {
@@ -58,7 +163,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 27
       },
       "id": 2,
       "options": {
@@ -115,7 +220,6 @@
                 "type": "groupBy"
               }
             ],
-            "limit": null,
             "orderBy": {
               "property": {
                 "name": "\"Year\"",
@@ -182,7 +286,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 35
       },
       "id": 1,
       "options": {
@@ -267,10 +371,111 @@
   "schemaVersion": 39,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "2009"
+          ],
+          "value": [
+            "2009"
+          ]
+        },
+        "definition": "SELECT\n  \"Year\"\nFROM\n  tuition\nGROUP BY\n  \"Year\"\nORDER BY\n  \"Year\" ASC",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Year",
+        "multi": true,
+        "name": "year",
+        "options": [],
+        "query": "SELECT\n  \"Year\"\nFROM\n  tuition\nGROUP BY\n  \"Year\"\nORDER BY\n  \"Year\" ASC",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "definition": "SELECT\n  \"Sector Name\"\nFROM\n  tuition\nGROUP BY\n  \"Sector Name\"\nORDER BY\n  \"Sector Name\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Sector",
+        "multi": true,
+        "name": "sector",
+        "options": [],
+        "query": "SELECT\n  \"Sector Name\"\nFROM\n  tuition\nGROUP BY\n  \"Sector Name\"\nORDER BY\n  \"Sector Name\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "definition": "SELECT\n  \"State\"\nFROM\n  tuition\nGROUP BY\n  \"State\"\nORDER BY\n  \"State\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": "State",
+        "multi": true,
+        "name": "state",
+        "options": [],
+        "query": "SELECT\n  \"State\"\nFROM\n  tuition\nGROUP BY\n  \"State\"\nORDER BY\n  \"State\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "definition": "SELECT\n  \"Institution Name\"\nFROM\n  tuition\nGROUP BY\n  \"Institution Name\"\nORDER BY\n  \"Institution Name\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Institution",
+        "multi": true,
+        "name": "institution",
+        "options": [],
+        "query": "SELECT\n  \"Institution Name\"\nFROM\n  tuition\nGROUP BY\n  \"Institution Name\"\nORDER BY\n  \"Institution Name\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
