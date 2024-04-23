@@ -75,7 +75,31 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 351
+                "value": 435
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Year"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "State"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 168
               }
             ]
           }
@@ -1511,9 +1535,9 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
-          "text": "2014",
-          "value": "2014"
+          "selected": true,
+          "text": "2008",
+          "value": "2008"
         },
         "datasource": {
           "type": "grafana-postgresql-datasource",
@@ -1630,6 +1654,6 @@
   "timezone": "utc",
   "title": "Tuition",
   "uid": "cdjcot66idn28e",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
