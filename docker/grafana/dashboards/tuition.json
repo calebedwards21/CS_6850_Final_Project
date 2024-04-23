@@ -314,7 +314,6 @@
                 "type": "groupBy"
               }
             ],
-            "limit": null,
             "orderBy": {
               "property": {
                 "name": [
@@ -528,7 +527,6 @@
                 "type": "groupBy"
               }
             ],
-            "limit": null,
             "orderBy": {
               "property": {
                 "name": [
@@ -706,7 +704,6 @@
                 "type": "groupBy"
               }
             ],
-            "limit": null,
             "orderBy": {
               "property": {
                 "name": [
@@ -1081,7 +1078,7 @@
               "editorMode": "builder",
               "format": "table",
               "rawQuery": true,
-              "rawSql": "SELECT \"Cost\", \"Institution Name\", \"State\", \"Sector Name\" FROM tuition WHERE (\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state)) ORDER BY \"Cost\" ASC LIMIT 200 ",
+              "rawSql": "SELECT \"Cost\", \"Institution Name\", \"State\", \"Sector Name\" FROM tuition WHERE (\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution)) ORDER BY \"Cost\" ASC LIMIT 200 ",
               "refId": "A",
               "sql": {
                 "columns": [
@@ -1187,12 +1184,30 @@
                         ]
                       },
                       "type": "rule"
+                    },
+                    {
+                      "id": "99a888a9-0123-4456-b89a-b18f08e5a4f6",
+                      "properties": {
+                        "field": "\"Institution Name\"",
+                        "fieldSrc": "field",
+                        "operator": "select_any_in",
+                        "value": [
+                          "$institution"
+                        ],
+                        "valueSrc": [
+                          "value"
+                        ],
+                        "valueType": [
+                          "text"
+                        ]
+                      },
+                      "type": "rule"
                     }
                   ],
                   "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
                   "type": "group"
                 },
-                "whereString": "(\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state))"
+                "whereString": "(\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution))"
               },
               "table": "tuition"
             }
@@ -1320,7 +1335,7 @@
               "editorMode": "builder",
               "format": "table",
               "rawQuery": true,
-              "rawSql": "SELECT \"Cost\", \"Institution Name\", \"State\", \"Sector Name\" FROM tuition WHERE (\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state)) ORDER BY \"Cost\" DESC LIMIT 200 ",
+              "rawSql": "SELECT \"Cost\", \"Institution Name\", \"State\", \"Sector Name\" FROM tuition WHERE (\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution)) ORDER BY \"Cost\" DESC LIMIT 200 ",
               "refId": "A",
               "sql": {
                 "columns": [
@@ -1426,12 +1441,30 @@
                         ]
                       },
                       "type": "rule"
+                    },
+                    {
+                      "id": "89888b9a-cdef-4012-b456-718f08e6612f",
+                      "properties": {
+                        "field": "\"Institution Name\"",
+                        "fieldSrc": "field",
+                        "operator": "select_any_in",
+                        "value": [
+                          "$institution"
+                        ],
+                        "valueSrc": [
+                          "value"
+                        ],
+                        "valueType": [
+                          "text"
+                        ]
+                      },
+                      "type": "rule"
                     }
                   ],
                   "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
                   "type": "group"
                 },
-                "whereString": "(\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state))"
+                "whereString": "(\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution))"
               },
               "table": "tuition"
             }
@@ -1480,7 +1513,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "2014",
           "value": "2014"
         },
@@ -1496,35 +1529,6 @@
         "name": "year",
         "options": [],
         "query": "SELECT\n  \"Year\"\nFROM\n  tuition\nGROUP BY\n  \"Year\"\nORDER BY\n  \"Year\" ASC",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "allValue": "",
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "grafana-postgresql-datasource",
-          "uid": "P44368ADAD746BC27"
-        },
-        "definition": "SELECT\n  \"Sector Name\"\nFROM\n  tuition\nGROUP BY\n  \"Sector Name\"\nORDER BY\n  \"Sector Name\"",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Sector",
-        "multi": true,
-        "name": "sector",
-        "options": [],
-        "query": "SELECT\n  \"Sector Name\"\nFROM\n  tuition\nGROUP BY\n  \"Sector Name\"\nORDER BY\n  \"Sector Name\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1575,6 +1579,35 @@
           "type": "grafana-postgresql-datasource",
           "uid": "P44368ADAD746BC27"
         },
+        "definition": "SELECT\n  \"Sector Name\"\nFROM\n  tuition\nWHERE\n  \"State\" IN ($state)\nGROUP BY\n  \"Sector Name\"\nORDER BY\n  \"Sector Name\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Sector",
+        "multi": true,
+        "name": "sector",
+        "options": [],
+        "query": "SELECT\n  \"Sector Name\"\nFROM\n  tuition\nWHERE\n  \"State\" IN ($state)\nGROUP BY\n  \"Sector Name\"\nORDER BY\n  \"Sector Name\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "P44368ADAD746BC27"
+        },
         "definition": "SELECT\n  \"Institution Name\"\nFROM\n  tuition\nWHERE\n  \"State\" IN ($state) AND\n  \"Sector Name\" IN ($sector)\nGROUP BY\n  \"Institution Name\"\nORDER BY\n  \"Institution Name\"",
         "hide": 0,
         "includeAll": true,
@@ -1599,6 +1632,6 @@
   "timezone": "utc",
   "title": "Tuition",
   "uid": "cdjcot66idn28e",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
