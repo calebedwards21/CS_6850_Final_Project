@@ -30,220 +30,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 22,
-        "x": 0,
-        "y": 0
-      },
-      "id": 3,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.4.1",
-      "repeat": "year",
-      "repeatDirection": "h",
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "P44368ADAD746BC27"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT AVG(\"Cost\") FROM tuition  WHERE Year = $year;",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "name": "AVG",
-                "parameters": [
-                  {
-                    "name": "\"Cost\"",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "\"Year\"",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "name": "\"Year\"",
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": null,
-            "orderBy": {
-              "property": {
-                "type": "string"
-              },
-              "type": "property"
-            }
-          },
-          "table": "tuition"
-        }
-      ],
-      "title": "Panel Title",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "P44368ADAD746BC27"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 27
-      },
-      "id": 2,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "10.4.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "P44368ADAD746BC27"
-          },
-          "editorMode": "builder",
-          "format": "table",
-          "rawSql": "SELECT \"Year\", AVG(\"Cost\") FROM tuition GROUP BY \"Year\" ORDER BY \"Year\" ",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "\"Year\"",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "name": "AVG",
-                "parameters": [
-                  {
-                    "name": "\"Cost\"",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "name": "\"Year\"",
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "orderBy": {
-              "property": {
-                "name": "\"Year\"",
-                "type": "string"
-              },
-              "type": "property"
-            }
-          },
-          "table": "tuition"
-        }
-      ],
-      "title": "Panel Title",
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "P44368ADAD746BC27"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
@@ -272,26 +58,48 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Predicted"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "blue",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 0
       },
       "id": 1,
       "options": {
         "barRadius": 0,
         "barWidth": 0.97,
+        "colorByField": "Predicted",
         "fullHighlight": false,
         "groupWidth": 0.7,
         "legend": {
@@ -318,7 +126,7 @@
           },
           "editorMode": "builder",
           "format": "table",
-          "rawSql": "SELECT \"Year\", AVG(\"Cost\") FROM tuition GROUP BY \"Year\" ORDER BY \"Year\" ",
+          "rawSql": "SELECT \"Year\", AVG(\"Cost\"), \"Predicted\" FROM tuition GROUP BY \"Year\", \"Predicted\" ORDER BY \"Year\" ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -340,12 +148,28 @@
                   }
                 ],
                 "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"Predicted\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
               }
             ],
             "groupBy": [
               {
                 "property": {
                   "name": "\"Year\"",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              },
+              {
+                "property": {
+                  "name": "\"Predicted\"",
                   "type": "string"
                 },
                 "type": "groupBy"
@@ -359,13 +183,374 @@
                 "type": "string"
               },
               "type": "property"
+            },
+            "whereJsonTree": {
+              "children1": [],
+              "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
+              "type": "group"
             }
           },
           "table": "tuition"
         }
       ],
-      "title": "Panel Title",
+      "title": "Cost by Year",
       "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P44368ADAD746BC27"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "P44368ADAD746BC27"
+          },
+          "editorMode": "builder",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT AVG(\"Cost\"), \"time\", \"State\" FROM tuition WHERE \"State\" IN ($state) GROUP BY \"time\", \"State\" ORDER BY \"time\" ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "AVG",
+                "parameters": [
+                  {
+                    "name": "\"Cost\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"time\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"State\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "\"time\"",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              },
+              {
+                "property": {
+                  "name": "\"State\"",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": null,
+            "orderBy": {
+              "property": {
+                "name": [
+                  "\"time\""
+                ],
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aaaa98aa-0123-4456-b89a-b18f089d5553",
+                  "properties": {
+                    "field": "\"State\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$state"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
+              "type": "group"
+            },
+            "whereString": "\"State\" IN ($state)"
+          },
+          "table": "tuition"
+        }
+      ],
+      "title": "Cost by State: $state",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P44368ADAD746BC27"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "P44368ADAD746BC27"
+          },
+          "editorMode": "builder",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT AVG(\"Cost\"), \"time\", \"Sector Name\" FROM tuition WHERE \"Sector Name\" IN ($sector) GROUP BY \"time\", \"Sector Name\" ORDER BY \"time\" ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "AVG",
+                "parameters": [
+                  {
+                    "name": "\"Cost\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"time\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"Sector Name\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "\"time\"",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              },
+              {
+                "property": {
+                  "name": "\"Sector Name\"",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": null,
+            "orderBy": {
+              "property": {
+                "name": [
+                  "\"time\""
+                ],
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "89a8a8aa-cdef-4012-b456-718f0897e3eb",
+                  "properties": {
+                    "field": "\"Sector Name\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$sector"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
+              "type": "group"
+            },
+            "whereString": "\"Sector Name\" IN ($sector)"
+          },
+          "table": "tuition"
+        }
+      ],
+      "title": "Cost by Sector : $sector",
+      "type": "timeseries"
     }
   ],
   "schemaVersion": 39,
@@ -375,13 +560,17 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
-            "2009"
+            "All"
           ],
           "value": [
-            "2009"
+            "$__all"
           ]
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "P44368ADAD746BC27"
         },
         "definition": "SELECT\n  \"Year\"\nFROM\n  tuition\nGROUP BY\n  \"Year\"\nORDER BY\n  \"Year\" ASC",
         "hide": 0,
@@ -408,6 +597,10 @@
             "$__all"
           ]
         },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "P44368ADAD746BC27"
+        },
         "definition": "SELECT\n  \"Sector Name\"\nFROM\n  tuition\nGROUP BY\n  \"Sector Name\"\nORDER BY\n  \"Sector Name\"",
         "hide": 0,
         "includeAll": true,
@@ -433,6 +626,10 @@
             "$__all"
           ]
         },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "P44368ADAD746BC27"
+        },
         "definition": "SELECT\n  \"State\"\nFROM\n  tuition\nGROUP BY\n  \"State\"\nORDER BY\n  \"State\"",
         "hide": 0,
         "includeAll": true,
@@ -450,13 +647,17 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
           "value": [
             "$__all"
           ]
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "P44368ADAD746BC27"
         },
         "definition": "SELECT\n  \"Institution Name\"\nFROM\n  tuition\nGROUP BY\n  \"Institution Name\"\nORDER BY\n  \"Institution Name\"",
         "hide": 0,
@@ -475,13 +676,13 @@
     ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2008-01-01T00:00:00.000Z",
+    "to": "2015-01-01T23:59:59.000Z"
   },
   "timepicker": {},
-  "timezone": "browser",
+  "timezone": "utc",
   "title": "Tuition",
   "uid": "cdjcot66idn28e",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
