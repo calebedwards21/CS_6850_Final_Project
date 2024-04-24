@@ -513,7 +513,7 @@
           "editorMode": "builder",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT AVG(\"Cost\"), \"time\", \"State\" FROM tuition WHERE \"State\" IN ($state) GROUP BY \"time\", \"State\" ORDER BY \"time\" ",
+          "rawSql": "SELECT AVG(\"Cost\"), \"time\", \"State\" FROM tuition WHERE (\"State\" IN ($state) AND \"Sector Name\" IN ($sector) AND \"Institution Name\" IN ($institution)) GROUP BY \"time\", \"State\" ORDER BY \"time\" ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -590,12 +590,48 @@
                     ]
                   },
                   "type": "rule"
+                },
+                {
+                  "id": "8ab8baba-4567-489a-bcde-f18f0e311fe5",
+                  "properties": {
+                    "field": "\"Sector Name\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$sector"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "8a8a8abb-cdef-4012-b456-718f0e31a29e",
+                  "properties": {
+                    "field": "\"Institution Name\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$institution"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
                 }
               ],
               "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
               "type": "group"
             },
-            "whereString": "\"State\" IN ($state)"
+            "whereString": "(\"State\" IN ($state) AND \"Sector Name\" IN ($sector) AND \"Institution Name\" IN ($institution))"
           },
           "table": "tuition"
         }
@@ -690,7 +726,7 @@
           "editorMode": "builder",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT AVG(\"Cost\"), \"time\", \"Sector Name\" FROM tuition WHERE \"Sector Name\" IN ($sector) GROUP BY \"time\", \"Sector Name\" ORDER BY \"time\" ",
+          "rawSql": "SELECT AVG(\"Cost\"), \"time\", \"Sector Name\" FROM tuition WHERE (\"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution)) GROUP BY \"time\", \"Sector Name\" ORDER BY \"time\" ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -767,12 +803,48 @@
                     ]
                   },
                   "type": "rule"
+                },
+                {
+                  "id": "8bbbbaba-4567-489a-bcde-f18f0e32f1ba",
+                  "properties": {
+                    "field": "\"State\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$state"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "b8abbb8b-4567-489a-bcde-f18f0e3343fb",
+                  "properties": {
+                    "field": "\"Institution Name\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$institution"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
                 }
               ],
               "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
               "type": "group"
             },
-            "whereString": "\"Sector Name\" IN ($sector)"
+            "whereString": "(\"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution))"
           },
           "table": "tuition"
         }
@@ -1001,7 +1073,7 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1009,522 +1081,523 @@
         "y": 24
       },
       "id": 6,
-      "panels": [
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "P44368ADAD746BC27"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "center",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Institution Name"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 556
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "State"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 239
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 25
-          },
-          "id": 7,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "10.4.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "P44368ADAD746BC27"
-              },
-              "editorMode": "builder",
-              "format": "table",
-              "rawQuery": true,
-              "rawSql": "SELECT \"Cost\", \"Institution Name\", \"State\", \"Sector Name\" FROM tuition WHERE (\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution)) ORDER BY \"Cost\" ASC LIMIT 200 ",
-              "refId": "A",
-              "sql": {
-                "columns": [
-                  {
-                    "parameters": [
-                      {
-                        "name": "\"Cost\"",
-                        "type": "functionParameter"
-                      }
-                    ],
-                    "type": "function"
-                  },
-                  {
-                    "parameters": [
-                      {
-                        "name": "\"Institution Name\"",
-                        "type": "functionParameter"
-                      }
-                    ],
-                    "type": "function"
-                  },
-                  {
-                    "parameters": [
-                      {
-                        "name": "\"State\"",
-                        "type": "functionParameter"
-                      }
-                    ],
-                    "type": "function"
-                  },
-                  {
-                    "parameters": [
-                      {
-                        "name": "\"Sector Name\"",
-                        "type": "functionParameter"
-                      }
-                    ],
-                    "type": "function"
-                  }
-                ],
-                "groupBy": [],
-                "limit": 200,
-                "orderBy": {
-                  "property": {
-                    "name": "\"Cost\"",
-                    "type": "string"
-                  },
-                  "type": "property"
-                },
-                "orderByDirection": "ASC",
-                "whereJsonTree": {
-                  "children1": [
-                    {
-                      "id": "bb898b9b-89ab-4cde-b012-318f08b59573",
-                      "properties": {
-                        "field": "\"Year\"",
-                        "fieldSrc": "field",
-                        "operator": "equal",
-                        "value": [
-                          "$year"
-                        ],
-                        "valueSrc": [
-                          "value"
-                        ],
-                        "valueType": [
-                          "text"
-                        ]
-                      },
-                      "type": "rule"
-                    },
-                    {
-                      "id": "9bb8ba9b-cdef-4012-b456-718f08b880fa",
-                      "properties": {
-                        "field": "\"Sector Name\"",
-                        "fieldSrc": "field",
-                        "operator": "select_any_in",
-                        "value": [
-                          "$sector"
-                        ],
-                        "valueSrc": [
-                          "value"
-                        ],
-                        "valueType": [
-                          "text"
-                        ]
-                      },
-                      "type": "rule"
-                    },
-                    {
-                      "id": "babb999b-89ab-4cde-b012-318f08c3c3cf",
-                      "properties": {
-                        "field": "\"State\"",
-                        "fieldSrc": "field",
-                        "operator": "select_any_in",
-                        "value": [
-                          "$state"
-                        ],
-                        "valueSrc": [
-                          "value"
-                        ],
-                        "valueType": [
-                          "text"
-                        ]
-                      },
-                      "type": "rule"
-                    },
-                    {
-                      "id": "99a888a9-0123-4456-b89a-b18f08e5a4f6",
-                      "properties": {
-                        "field": "\"Institution Name\"",
-                        "fieldSrc": "field",
-                        "operator": "select_any_in",
-                        "value": [
-                          "$institution"
-                        ],
-                        "valueSrc": [
-                          "value"
-                        ],
-                        "valueType": [
-                          "text"
-                        ]
-                      },
-                      "type": "rule"
-                    }
-                  ],
-                  "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
-                  "type": "group"
-                },
-                "whereString": "(\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution))"
-              },
-              "table": "tuition"
-            }
-          ],
-          "title": "Most Affordable School",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Predicted": true,
-                  "Sector": true,
-                  "UnitID": true,
-                  "time": true
-                },
-                "includeByName": {},
-                "indexByName": {
-                  "Calendar System": 6,
-                  "Cost": 7,
-                  "Institution Name": 3,
-                  "Predicted": 8,
-                  "Sector": 1,
-                  "Sector Name": 5,
-                  "State": 4,
-                  "UnitID": 2,
-                  "Year": 0,
-                  "time": 9
-                },
-                "renameByName": {
-                  "Sector Name": "Sector"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "P44368ADAD746BC27"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "center",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Institution Name"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 557
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "State"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 241
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 32
-          },
-          "id": 8,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "10.4.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "P44368ADAD746BC27"
-              },
-              "editorMode": "builder",
-              "format": "table",
-              "rawQuery": true,
-              "rawSql": "SELECT \"Cost\", \"Institution Name\", \"State\", \"Sector Name\" FROM tuition WHERE (\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution)) ORDER BY \"Cost\" DESC LIMIT 200 ",
-              "refId": "A",
-              "sql": {
-                "columns": [
-                  {
-                    "parameters": [
-                      {
-                        "name": "\"Cost\"",
-                        "type": "functionParameter"
-                      }
-                    ],
-                    "type": "function"
-                  },
-                  {
-                    "parameters": [
-                      {
-                        "name": "\"Institution Name\"",
-                        "type": "functionParameter"
-                      }
-                    ],
-                    "type": "function"
-                  },
-                  {
-                    "parameters": [
-                      {
-                        "name": "\"State\"",
-                        "type": "functionParameter"
-                      }
-                    ],
-                    "type": "function"
-                  },
-                  {
-                    "parameters": [
-                      {
-                        "name": "\"Sector Name\"",
-                        "type": "functionParameter"
-                      }
-                    ],
-                    "type": "function"
-                  }
-                ],
-                "groupBy": [],
-                "limit": 200,
-                "orderBy": {
-                  "property": {
-                    "name": "\"Cost\"",
-                    "type": "string"
-                  },
-                  "type": "property"
-                },
-                "orderByDirection": "DESC",
-                "whereJsonTree": {
-                  "children1": [
-                    {
-                      "id": "bb898b9b-89ab-4cde-b012-318f08b59573",
-                      "properties": {
-                        "field": "\"Year\"",
-                        "fieldSrc": "field",
-                        "operator": "equal",
-                        "value": [
-                          "$year"
-                        ],
-                        "valueSrc": [
-                          "value"
-                        ],
-                        "valueType": [
-                          "text"
-                        ]
-                      },
-                      "type": "rule"
-                    },
-                    {
-                      "id": "9bb8ba9b-cdef-4012-b456-718f08b880fa",
-                      "properties": {
-                        "field": "\"Sector Name\"",
-                        "fieldSrc": "field",
-                        "operator": "select_any_in",
-                        "value": [
-                          "$sector"
-                        ],
-                        "valueSrc": [
-                          "value"
-                        ],
-                        "valueType": [
-                          "text"
-                        ]
-                      },
-                      "type": "rule"
-                    },
-                    {
-                      "id": "b8b8888a-4567-489a-bcde-f18f08c417a7",
-                      "properties": {
-                        "field": "\"State\"",
-                        "fieldSrc": "field",
-                        "operator": "select_any_in",
-                        "value": [
-                          "$state"
-                        ],
-                        "valueSrc": [
-                          "value"
-                        ],
-                        "valueType": [
-                          "text"
-                        ]
-                      },
-                      "type": "rule"
-                    },
-                    {
-                      "id": "89888b9a-cdef-4012-b456-718f08e6612f",
-                      "properties": {
-                        "field": "\"Institution Name\"",
-                        "fieldSrc": "field",
-                        "operator": "select_any_in",
-                        "value": [
-                          "$institution"
-                        ],
-                        "valueSrc": [
-                          "value"
-                        ],
-                        "valueType": [
-                          "text"
-                        ]
-                      },
-                      "type": "rule"
-                    }
-                  ],
-                  "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
-                  "type": "group"
-                },
-                "whereString": "(\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution))"
-              },
-              "table": "tuition"
-            }
-          ],
-          "title": "Most Expensive School",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Predicted": true,
-                  "Sector": true,
-                  "UnitID": true,
-                  "time": true
-                },
-                "includeByName": {},
-                "indexByName": {
-                  "Calendar System": 6,
-                  "Cost": 7,
-                  "Institution Name": 3,
-                  "Predicted": 8,
-                  "Sector": 1,
-                  "Sector Name": 5,
-                  "State": 4,
-                  "UnitID": 2,
-                  "Year": 0,
-                  "time": 9
-                },
-                "renameByName": {
-                  "Sector Name": "Sector"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "title": "Findings",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P44368ADAD746BC27"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Institution Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 556
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "State"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 239
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 7,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "P44368ADAD746BC27"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"Cost\", \"Institution Name\", \"State\", \"Sector Name\" FROM tuition WHERE (\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution)) ORDER BY \"Cost\" ASC LIMIT 200 ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "\"Cost\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"Institution Name\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"State\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"Sector Name\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [],
+            "limit": 200,
+            "orderBy": {
+              "property": {
+                "name": "\"Cost\"",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "orderByDirection": "ASC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "bb898b9b-89ab-4cde-b012-318f08b59573",
+                  "properties": {
+                    "field": "\"Year\"",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$year"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "9bb8ba9b-cdef-4012-b456-718f08b880fa",
+                  "properties": {
+                    "field": "\"Sector Name\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$sector"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "babb999b-89ab-4cde-b012-318f08c3c3cf",
+                  "properties": {
+                    "field": "\"State\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$state"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "99a888a9-0123-4456-b89a-b18f08e5a4f6",
+                  "properties": {
+                    "field": "\"Institution Name\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$institution"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
+              "type": "group"
+            },
+            "whereString": "(\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution))"
+          },
+          "table": "tuition"
+        }
+      ],
+      "title": "Most Affordable School",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Predicted": true,
+              "Sector": true,
+              "UnitID": true,
+              "time": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Calendar System": 6,
+              "Cost": 7,
+              "Institution Name": 3,
+              "Predicted": 8,
+              "Sector": 1,
+              "Sector Name": 5,
+              "State": 4,
+              "UnitID": 2,
+              "Year": 0,
+              "time": 9
+            },
+            "renameByName": {
+              "Sector Name": "Sector"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P44368ADAD746BC27"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Institution Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 557
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "State"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 241
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "P44368ADAD746BC27"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"Cost\", \"Institution Name\", \"State\", \"Sector Name\" FROM tuition WHERE (\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution)) ORDER BY \"Cost\" DESC LIMIT 200 ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "\"Cost\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"Institution Name\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"State\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"Sector Name\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [],
+            "limit": 200,
+            "orderBy": {
+              "property": {
+                "name": "\"Cost\"",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "orderByDirection": "DESC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "bb898b9b-89ab-4cde-b012-318f08b59573",
+                  "properties": {
+                    "field": "\"Year\"",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$year"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "9bb8ba9b-cdef-4012-b456-718f08b880fa",
+                  "properties": {
+                    "field": "\"Sector Name\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$sector"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "b8b8888a-4567-489a-bcde-f18f08c417a7",
+                  "properties": {
+                    "field": "\"State\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$state"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "89888b9a-cdef-4012-b456-718f08e6612f",
+                  "properties": {
+                    "field": "\"Institution Name\"",
+                    "fieldSrc": "field",
+                    "operator": "select_any_in",
+                    "value": [
+                      "$institution"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "b8ab989a-0123-4456-b89a-b18f087a4c79",
+              "type": "group"
+            },
+            "whereString": "(\"Year\" = '$year' AND \"Sector Name\" IN ($sector) AND \"State\" IN ($state) AND \"Institution Name\" IN ($institution))"
+          },
+          "table": "tuition"
+        }
+      ],
+      "title": "Most Expensive School",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Predicted": true,
+              "Sector": true,
+              "UnitID": true,
+              "time": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Calendar System": 6,
+              "Cost": 7,
+              "Institution Name": 3,
+              "Predicted": 8,
+              "Sector": 1,
+              "Sector Name": 5,
+              "State": 4,
+              "UnitID": 2,
+              "Year": 0,
+              "time": 9
+            },
+            "renameByName": {
+              "Sector Name": "Sector"
+            }
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "refresh": "",
@@ -1535,7 +1608,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "2008",
           "value": "2008"
         },
