@@ -86,8 +86,7 @@
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": null
+                "id": "custom.width"
               }
             ]
           },
@@ -1528,6 +1527,7 @@
       "type": "row"
     }
   ],
+  "refresh": "",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -1648,12 +1648,12 @@
   },
   "time": {
     "from": "2008-01-01T00:00:00.000Z",
-    "to": "2015-01-01T23:59:59.000Z"
+    "to": "2018-01-01T23:59:59.000Z"
   },
   "timepicker": {},
   "timezone": "utc",
   "title": "Tuition",
   "uid": "cdjcot66idn28e",
-  "version": 5,
+  "version": 1,
   "weekStart": ""
 }
