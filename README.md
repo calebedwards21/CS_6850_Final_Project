@@ -1,3 +1,6 @@
+## Python version
+This project has been created using Python 3.10. Older versions of Python 3 may not support the required packages.
+
 ## Python Virtual Environment
 - Create virtual environment
   - ``` python -m venv venv ```
