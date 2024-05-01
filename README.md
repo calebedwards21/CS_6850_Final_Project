@@ -18,3 +18,9 @@ This project has been created using Python 3.10. Older versions of Python 3 may 
   - ``` docker compose up -d ```
 - Clean up docker compose 
   - ``` docker compose down ```
+
+## Grafana Instructions
+1. Install required packages
+2. Spin up docker compose
+3. Run `main.ipynb` to populate data in postgres database
+4. Open Grafana [here](http://localhost:3000)
